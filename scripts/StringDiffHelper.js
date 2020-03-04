@@ -3,7 +3,7 @@
 /** 
  * @description Synthesise and Recognise speech from Browser. 
  */
-class ComparisonHelper {
+class StringDiffHelper {
     constructor() {
         this._diffString = "";
         this._delpatteren = /(?<del><del>\s*(?<delString>(.*?))\s*<\/del>)/gmi;
@@ -21,7 +21,7 @@ class ComparisonHelper {
         }
     }
 
-    modifyDiffString() {
+    getmodifiedDiffString() {
         modifiedDiffString = this._diffString.replace(delpatteren, '<a val=$<delString>>$<del></a>');
         return modifiedDiffString;
     }
