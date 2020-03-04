@@ -1,0 +1,166 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Text to Speech</title>
+    <script src='jsdiff.js'></script>
+
+</head>
+
+<body>
+    <!-- https://johnresig.com/projects/javascript-diff-algorithm/ -->
+    <!-- Select Voice: <select id='voiceList'></select> <br><br> -->
+
+    <!-- <input id='txtInput' /> <br><br> -->
+    <button id='btnSpeak'>Speak!</button>
+    <div id=dvDiffArea></div>
+
+    <script>
+        //var txtInput = document.querySelector('#txtInput');
+        //var voiceList = document.querySelector('#voiceList');
+        window.utterances = [];
+        var txtInput = "Collaboratively administraters are good. ";
+        var btnSpeak = document.querySelector('#btnSpeak');
+        var synth = window.speechSynthesis;
+        var toSpeak = new SpeechSynthesisUtterance();
+        var voices = window.speechSynthesis.getVoices();
+        var utterances = [];
+        //var voices = [];
+
+        /*
+                PopulateVoices();
+                if (speechSynthesis !== undefined) {
+                    speechSynthesis.onvoiceschanged = PopulateVoices;
+                }
+        */
+        function boundary(event) {
+            console.log('boundary reached');
+            /*
+            var e = document.getElementById('textarea');
+            var word = getWordAt(e.value, event.charIndex);
+            // Show Speaking word : x
+            document.getElementById("word").innerHTML = word;
+            //Increase index of span to highlight
+            console.info(global_words[wordIndex]);
+
+            try {
+                document.getElementById("word_span_" + wordIndex).style.color = "blue";
+            } catch (e) {}
+
+            wordIndex++;
+            */
+        };
+
+        function end() {
+            console.log('boundary ended');
+            /*
+            document.getElementById("word").innerHTML = "";
+            wordIndex = 0;
+            document.getElementById("panel").innerHTML = "";
+            */
+        };
+
+        function start() {
+            console.log('boundary started');
+            /*
+            document.getElementById("word").innerHTML = "";
+            wordIndex = 0;
+            document.getElementById("panel").innerHTML = "";
+            */
+        };
+
+
+        btnSpeak.addEventListener('click', () => {
+            //var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
+
+            toSpeak.voice = voices[2];
+            toSpeak.voiceURI = 'native';
+            toSpeak.lang = 'en-US';
+            toSpeak.rate = 1;
+            toSpeak.text = txtInput;
+            toSpeak.onboundary = function(e) {
+                console.log('onboundary')
+                    /*
+                    if ( e.name == 'word' ) {
+                      progress_index = e.charIndex;
+                    }
+                    */
+            };
+
+            toSpeak.onend = end;
+            toSpeak.onstart = start;
+
+            utterances.push(toSpeak);
+
+            /*
+            toSpeak.addEventListener('boundary', function(event) {
+                console.log(event.name + ' boundary reached after ' + event.elapsedTime + ' milliseconds.');
+            });
+            */
+
+            //utterances.push(toSpeak);
+
+            /* var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
+            voices.forEach((voice) => {
+                if (voice.name === selectedVoiceName) {
+                    toSpeak.voice = voice;
+                }
+            });
+            */
+            synth.speak(toSpeak);
+        });
+
+        let diffWords = diffString(
+            "The brown fox jumped over the rolling log. And this is a good example. red",
+            "red The brown spotted fox leaped over the rolling log. "
+        );
+
+        //console.log(diffWords);
+
+        dvDiffArea.innerHTML = diffWords;
+
+        let html = `The <del>red </del> brown <ins>spotted </ins> fox <del>jumped </del><ins>leaped </ins> 
+        over  the  rolling <del>log.</del><ins>log </ins>`;
+        let delpatteren = /(?<del><del>\s*(?<delString>(.*?))\s*<\/del>)/gmi;
+        let inspatteren = /(?<ins><ins>\s*(.*?)\s*<\/ins>)/gmi;
+
+        let delresults = html.matchAll(delpatteren);
+
+        for (let result of delresults) {
+            let {
+                del
+            } = result.groups;
+            console.log(`${del}`);
+        }
+        newHtml = html.replace(delpatteren, '<a val=$<delString>>$<del></a>');
+        console.log(newHtml);
+
+
+
+
+
+
+
+        /*
+
+        function PopulateVoices() {
+            voices = synth.getVoices();
+            var selectedIndex = voiceList.selectedIndex < 0 ? 0 : voiceList.selectedIndex;
+            voiceList.innerHTML = '';
+            voices.forEach((voice) => {
+                var listItem = document.createElement('option');
+                listItem.textContent = voice.name;
+                listItem.setAttribute('data-lang', voice.lang);
+                listItem.setAttribute('data-name', voice.name);
+                voiceList.appendChild(listItem);
+            });
+
+            voiceList.selectedIndex = selectedIndex;
+        }
+        */
+    </script>
+</body>
+
+</html>
