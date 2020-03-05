@@ -96,6 +96,7 @@ class SpeechHelper {
     startSpeechRecognition(callbackfunc) {
         try {
             this._continueRecognisingSpeech = true;
+            this._recognisedTranscriptsBag = [];
             this._recogniseCallBackFunc = callbackfunc;
             this._recognition.start();
         } catch (exp) {
@@ -116,7 +117,6 @@ class SpeechHelper {
     stopSpeechRecognition(callbackfunc) {
         try {
             this._continueRecognisingSpeech = false;
-            this._recognisedTranscriptsBag = [];
             this._recognition.stop();
         } catch (exp) {
             console.log(exp.message);
@@ -132,11 +132,11 @@ class SpeechHelper {
     }
 
     recognitionCompletion() {
-        this._recognisedTranscriptsBag.push(this._currentTranscript);
-        if (typeof(this._recogniseCallBackFunc) === typeof(Function)) {
-            this._recogniseCallBackFunc(this._recognisedTranscriptsBag.join(' '));
-        }
         if (this._continueRecognisingSpeech == true) {
+            this._recognisedTranscriptsBag.push(this._currentTranscript);
+            if (typeof(this._recogniseCallBackFunc) === typeof(Function)) {
+                this._recogniseCallBackFunc(this._recognisedTranscriptsBag.join(' '));
+            }
             this.restartSpeechRecognition();
         }
     }
