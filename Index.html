@@ -7,20 +7,38 @@
     <title>Text to Speech</title>
     <script src="/scripts/jsdiff.js"></script>
     <script src="/scripts/speechHelper.js"></script>
-    <script src="/scripts/StringDiffHelper.js"></script>
+    <script src="/scripts/DiffHelper.js"></script>
 </head>
 
 <body>
 
-    <button id='btnSpeak'>Speak!</button>
-    <button id='btnRecognise'>Recognise!</button>
-    <button id='btnReplaceString'>Replace Strings!</button>
+    <div id=dvTextToRead>
+        <p>You can first filter your array and then perform your map but this would require two passes on the array. Since this array is small, it is a very small performance cost.
+        </p>
+    </div>
+    <div id=dvSpokenText>
+    </div>
     <div id=dvDiffArea></div>
-    <div id=dvSpokenText></div>
+
+    <button id='btnSpeak'>Replay Text!</button>
+
+    <button id='btnStartRecognise'>Start Reading Yourself!</button>
+    <button id='btnStopRecognise'>Stop Reading!</button>
+    <button id='btnAssessReading'>Assess Reading!</button>
 
     <script>
         let speechHelper = new SpeechHelper();
-        let stringDiff = new StringDiffHelper();
+        let stringDiff = new DiffHelper();
+
+        function getTextToRead() {
+            var node = document.getElementById('dvTextToRead');
+            return node.innerText;
+        }
+
+        function getSpokenText() {
+            var node = document.getElementById('dvSpokenText');
+            return node.innerText;
+        }
 
         function delCallBack(data) {
             console.log(data);
@@ -28,24 +46,25 @@
 
         function speechCallBack(response) {
             dvSpokenText.innerHTML = response;
-            //console.log(data);
         }
 
         btnSpeak.addEventListener('click', () => {
-            let msg = ` Visual Studio Code is a lightweight but powerful source code editor which runs on your desktop and is available for Windows, macOS and Linux. It comes with built-in support for JavaScript, TypeScript
-        and Node.js and has a rich ecosystem of extensions for other languages such as C++, C#, Java, Python, PHP, Go and runtimes such as .NET and Unity. Begin your journey with VS Code with these introductory videos. `;
+            let msg = getTextToRead();
             let speech = new SpeechHelper();
-            speech.speakAll(msg);
+            speech.speak(msg);
         });
 
-        btnRecognise.addEventListener('click', () => {
+        btnStartRecognise.addEventListener('click', () => {
             speechHelper.startSpeechRecognition(speechCallBack);
         });
+        btnStopRecognise.addEventListener('click', () => {
+            speechHelper.stopSpeechRecognition();
+        });
 
-        btnReplaceString.addEventListener('click', () => {
-            let source = " This is the test from me";
-            let mutated = "That was the test from me";
-            dvDiffArea.innerHTML = stringDiff.getmodifiedDiffString(source, mutated);
+        btnAssessReading.addEventListener('click', () => {
+            let sourceText = getTextToRead();
+            let spokenText = getSpokenText();
+            dvDiffArea.innerHTML = stringDiff.getmodifiedDiffString(sourceText, spokenText, 'delCallBack');
         });
     </script>
 </body>

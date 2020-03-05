@@ -3,7 +3,7 @@
 /** 
  * @description Synthesise and Recognise speech from Browser. 
  */
-class StringDiffHelper {
+class DiffHelper {
     constructor() {
         this._delpatteren = /(?<del><del>\s*(?<delString>(.*?))\s*<\/del>)/gmi;
         this._inspatteren = /(?<ins><ins>\s*(.*?)\s*<\/ins>)/gmi;
