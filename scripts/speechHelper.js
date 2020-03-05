@@ -9,10 +9,11 @@ class SpeechHelper {
         this._recognition = new SpeechRecognition();
         this._recognition.interimResults = true;
         this._continueRecognisingSpeech = true;
-        this._recognition.onresult = this.recognisedTranscript;
-        this._recognition.onend = this.recognitionCompletion;
-        this._recognisedTranscriptsBag = [];
         this._recogniseCallBackFunc = null;
+        this._recognition.onresult = this.recognisedTranscript.bind(this);
+        this._recognition.onend = this.recognitionCompletion.bind(this);
+        this._recognisedTranscriptsBag = [];
+        this._currentTranscript = "";
 
         this._synth = window.speechSynthesis;
         this._toSpeak = new SpeechSynthesisUtterance();
@@ -95,28 +96,51 @@ class SpeechHelper {
         //console.log('Speech boundary reached.')
     };
 
-    recogniseSpeech(callbackfunc) {
-        this._recogniseCallBackFunc = callbackfunc;
-        this._recognition.start();
+    startSpeechRecognition(callbackfunc) {
+        try {
+            this._continueRecognisingSpeech = true;
+            this._recogniseCallBackFunc = callbackfunc;
+            this._recognition.start();
+        } catch (exp) {
+            console.log(exp.message);
+        }
+
     }
 
+    restartSpeechRecognition() {
+        try {
+            this._recognition.start();
+        } catch (exp) {
+            console.log(exp.message);
+        }
+
+    }
+
+    stopSpeechRecognition(callbackfunc) {
+        try {
+            this._continueRecognisingSpeech = false;
+            this._recogniseCallBackFunc = callbackfunc;
+            this._recognition.stop();
+        } catch (exp) {
+            console.log(exp.message);
+        }
+
+    }
     recognisedTranscript(evt) {
-        const transcript = Array.from(evt.results)
+        this._currentTranscript = Array.from(evt.results)
             .map(result => result[0])
             .map(result => result.transcript)
             .join('');
-        if (!this._recognisedTranscriptsBag) {
-            this._recognisedTranscriptsBag = [];
-        }
-        this._recognisedTranscriptsBag.push(transcript);
-        if (typeof(this._recogniseCallBackFunc) === typeof(Function)) {
-            this._recogniseCallBackFunc(transcript);
-        }
+        console.log(this._currentTranscript);
     }
 
-    recognitionCompletion(evt) {
+    recognitionCompletion() {
+        this._recognisedTranscriptsBag.push(this._currentTranscript);
+        if (typeof(this._recogniseCallBackFunc) === typeof(Function)) {
+            this._recogniseCallBackFunc(this._currentTranscript);
+        }
         if (this._continueRecognisingSpeech == true) {
-            this.recogniseSpeech();
+            this.restartSpeechRecognition();
         }
     }
 

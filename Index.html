@@ -16,6 +16,7 @@
     <button id='btnRecognise'>Recognise!</button>
     <button id='btnReplaceString'>Replace Strings!</button>
     <div id=dvDiffArea></div>
+    <div id=dvSpokenText></div>
 
     <script>
         let speechHelper = new SpeechHelper();
@@ -25,8 +26,9 @@
             console.log(data);
         }
 
-        function speechCallBack(data) {
-            console.log(data);
+        function speechCallBack(response) {
+            dvSpokenText.innerHTML = response;
+            //console.log(data);
         }
 
         btnSpeak.addEventListener('click', () => {
@@ -37,7 +39,7 @@
         });
 
         btnRecognise.addEventListener('click', () => {
-            speechHelper.recogniseSpeech(speechCallBack);
+            speechHelper.startSpeechRecognition(speechCallBack);
         });
 
         btnReplaceString.addEventListener('click', () => {
