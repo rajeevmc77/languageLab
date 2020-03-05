@@ -12,6 +12,7 @@ class SpeechHelper {
         this._recognition.onresult = this.recognisedTranscript;
         this._recognition.onend = this.recognitionCompletion;
         this._recognisedTranscriptsBag = [];
+        this._recogniseCallBackFunc = null;
 
         this._synth = window.speechSynthesis;
         this._toSpeak = new SpeechSynthesisUtterance();
@@ -94,7 +95,8 @@ class SpeechHelper {
         //console.log('Speech boundary reached.')
     };
 
-    recogniseSpeech() {
+    recogniseSpeech(callbackfunc) {
+        this._recogniseCallBackFunc = callbackfunc;
         this._recognition.start();
     }
 
@@ -107,7 +109,9 @@ class SpeechHelper {
             this._recognisedTranscriptsBag = [];
         }
         this._recognisedTranscriptsBag.push(transcript);
-        console.log(transcript);
+        if (typeof(this._recogniseCallBackFunc) === typeof(Function)) {
+            this._recogniseCallBackFunc(transcript);
+        }
     }
 
     recognitionCompletion(evt) {

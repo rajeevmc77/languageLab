@@ -5,19 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Text to Speech</title>
-    <script src="/scripts/speechHelper.js">
-    </script>
+    <script src="/scripts/jsdiff.js"></script>
+    <script src="/scripts/speechHelper.js"></script>
+    <script src="/scripts/StringDiffHelper.js"></script>
 </head>
 
 <body>
 
     <button id='btnSpeak'>Speak!</button>
-    <div id=dvDiffArea></div>
-
     <button id='btnRecognise'>Recognise!</button>
+    <button id='btnReplaceString'>Replace Strings!</button>
+    <div id=dvDiffArea></div>
 
     <script>
         let speechHelper = new SpeechHelper();
+        let stringDiff = new StringDiffHelper();
+
+        function delCallBack(data) {
+            console.log(data);
+        }
+
+        function speechCallBack(data) {
+            console.log(data);
+        }
+
         btnSpeak.addEventListener('click', () => {
             let msg = ` Visual Studio Code is a lightweight but powerful source code editor which runs on your desktop and is available for Windows, macOS and Linux. It comes with built-in support for JavaScript, TypeScript
         and Node.js and has a rich ecosystem of extensions for other languages such as C++, C#, Java, Python, PHP, Go and runtimes such as .NET and Unity. Begin your journey with VS Code with these introductory videos. `;
@@ -26,7 +37,13 @@
         });
 
         btnRecognise.addEventListener('click', () => {
-            speechHelper.recogniseSpeech();
+            speechHelper.recogniseSpeech(speechCallBack);
+        });
+
+        btnReplaceString.addEventListener('click', () => {
+            let source = " This is the test from me";
+            let mutated = "That was the test from me";
+            dvDiffArea.innerHTML = stringDiff.getmodifiedDiffString(source, mutated);
         });
     </script>
 </body>
