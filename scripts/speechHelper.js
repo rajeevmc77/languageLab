@@ -119,7 +119,7 @@ class SpeechHelper {
     stopSpeechRecognition(callbackfunc) {
         try {
             this._continueRecognisingSpeech = false;
-            this._recogniseCallBackFunc = callbackfunc;
+            this._recognisedTranscriptsBag = [];
             this._recognition.stop();
         } catch (exp) {
             console.log(exp.message);
