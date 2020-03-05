@@ -44,6 +44,10 @@
             console.log(data);
         }
 
+        function speakTextCompletionCallBack() {
+            console.log('Read Text Completed');
+        }
+
         function speechCallBack(response) {
             dvSpokenText.innerHTML = response;
         }
@@ -51,7 +55,7 @@
         btnSpeak.addEventListener('click', () => {
             let msg = getTextToRead();
             let speech = new SpeechHelper();
-            speech.speak(msg);
+            speech.speak(msg, speakTextCompletionCallBack);
         });
 
         btnStartRecognise.addEventListener('click', () => {

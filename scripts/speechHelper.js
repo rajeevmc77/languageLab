@@ -21,17 +21,25 @@ class SpeechHelper {
         this._toSpeak.voice = this._voices[2];
         this._toSpeak.lang = 'en-US';
         this._toSpeak.rate = 1;
+        this._speakComplationCallBack;
     }
 
     /** @description Speak out all the text passed in to the system.
      * @param {string} message to be spoken.         
      */
-    speak(message) {
+    speak(message, speakComplationCallBack) {
         try {
             let msgArray = this.decompose(message, 15);
             this.speakBatch(msgArray, 0);
+            this._speakComplationCallBack = speakComplationCallBack;
         } catch (exp) {
             console.log('exception ocured.', exp.message)
+        }
+    }
+
+    speakingBatchCompleted() {
+        if (typeof(this._speakComplationCallBack) === typeof(Function)) {
+            this._speakComplationCallBack();
         }
     }
 
@@ -44,6 +52,8 @@ class SpeechHelper {
                 index++;
                 if (index < message.length) {
                     this.speakBatch(message, index);
+                } else {
+                    this.speakingBatchCompleted();
                 }
             });
         } catch (exp) {
