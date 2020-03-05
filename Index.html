@@ -4,24 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Text to Speech</title>
+    <title>ECube English Support Tool</title>
+    <link rel="stylesheet" type="text/css" href="/styles/app.css">
 </head>
 
 <body>
 
-    <div id=dvTextToRead>
-        <p>You can first filter your array and then perform your map but this would require two passes on the array. Since this array is small, it is a very small performance cost.
-        </p>
-    </div>
-    <div id=dvSpokenText>
-    </div>
-    <div id=dvDiffArea></div>
+    <div class="container">
+        <div class="header"> E Cube English Helper</div>
+        <div class="story-page">
+            Story Page
 
-    <button id='btnSpeak'>Replay Text!</button>
+        </div>
+        <div class="story-content">
+            <div id=dvTextToRead>
+                You can first filter your array and then perform your map but this would require two passes on the array. Since this array is small, it is a very small performance cost.
 
-    <button id='btnStartRecognise'>Start Reading Yourself!</button>
-    <button id='btnStopRecognise'>Stop Reading!</button>
-    <button id='btnAssessReading'>Assess Reading!</button>
+            </div>
+            <div id=dvSpokenText>
+            </div>
+            <div id=dvDiffArea></div>
+        </div>
+        <div class="reports">
+            <div>
+                <button id='btnSpeak'>Replay Text!</button>
+                <button id='btnStartRecognise'>Start Reading Yourself!</button>
+                <button id='btnStopRecognise'>Stop Reading!</button>
+                <button id='btnAssessReading'>Assess Reading!</button>
+            </div>
+        </div>
+        <div class="learning-outcome">Learning outcome</div>
+    </div>
+
+
+
+
 
 
 

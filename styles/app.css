@@ -1,0 +1,33 @@
+.header {
+    grid-area: header;
+    font-size: 30px;
+}
+
+.story-page {
+    grid-area: story-page;
+}
+
+.story-content {
+    grid-area: story-content;
+}
+
+.reports {
+    grid-area: reports;
+}
+
+.learning-outcome {
+    grid-area: learning-outcome;
+}
+
+.container {
+    display: grid;
+    grid-template-areas: 'header header header' 'story-page story-content reports' 'learning-outcome learning-outcome learning-outcome';
+    grid-gap: 1px;
+    background-color: rgb(104, 224, 245);
+    padding: 2px;
+}
+
+.container>div {
+    text-align: center;
+    padding: 10px 0;
+}
