@@ -137,7 +137,7 @@ class SpeechHelper {
     recognitionCompletion() {
         this._recognisedTranscriptsBag.push(this._currentTranscript);
         if (typeof(this._recogniseCallBackFunc) === typeof(Function)) {
-            this._recogniseCallBackFunc(this._currentTranscript);
+            this._recogniseCallBackFunc(this._recognisedTranscriptsBag.join(' '));
         }
         if (this._continueRecognisingSpeech == true) {
             this.restartSpeechRecognition();
