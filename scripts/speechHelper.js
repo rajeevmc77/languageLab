@@ -19,12 +19,8 @@ class SpeechHelper {
         this._toSpeak = new SpeechSynthesisUtterance();
         this._voices = this._synth.getVoices();
         this._toSpeak.voice = this._voices[2];
-        //this._toSpeak.voiceURI = 'native';
         this._toSpeak.lang = 'en-US';
         this._toSpeak.rate = 1;
-        //this._toSpeak.onend = this.speechEnd;
-        //this._toSpeak.onstart = this.speechStart;
-        //this._toSpeak.onboundary = this.speechBoundary;
     }
 
     /** @description Speak out all the text passed in to the system.
@@ -86,15 +82,6 @@ class SpeechHelper {
         }
         return msgList;
     }
-    speechEnd() {
-        //console.log('Speech ended.');
-    };
-    speechStart() {
-        //console.log('Speech started.');
-    };
-    speechBoundary(e) {
-        //console.log('Speech boundary reached.')
-    };
 
     startSpeechRecognition(callbackfunc) {
         try {
