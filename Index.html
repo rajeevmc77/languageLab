@@ -6,19 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ECube English Support Tool</title>
     <link rel="stylesheet" type="text/css" href="/styles/app.css">
+    <link rel="stylesheet" href="styles/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-
     <div class="container">
         <div class="header"> E Cube English Helper</div>
         <div class="story-page">
             <img src="img/sheebu.png" />
         </div>
         <div class="story-content">
-            <div id=dvTextToRead ">
+            <div id=dvTextToRead ">                 
                 You can first filter your array and then perform your map but this would require two passes on the array. Since this array is small, it is a very small performance cost.
-
+                <div >
+                    <button id='btnSpeak'><i class="fa fa-play " aria-hidden="true "></i></button>
+                    <button id='btnStartRecognise'><i class="fa fa-microphone " aria-hidden="true "></i></button>
+                    <button id='btnStopRecognise'><i class="fa fa-microphone-slash " aria-hidden="true "></i></button>
+                    <button id='btnAssessReading'><i class="fa fa-line-chart " aria-hidden="true "></i></button>
+                </div>
             </div>
             <div id=dvSpokenText>
             </div>
@@ -26,21 +31,11 @@
         </div>
         <div class="reports ">
             <div class="reports-div "> Test </div>
-            <div class="reports-div ">
-                <button id='btnSpeak'>Replay Text!</button>
-                <button id='btnStartRecognise'>Start Reading Yourself!</button>
-                <button id='btnStopRecognise'>Stop Reading!</button>
-                <button id='btnAssessReading'>Assess Reading!</button>
+            <div class="reports-div ">               
             </div>
         </div>
         <div class="learning-outcome ">Learning outcome</div>
     </div>
-
-
-
-
-
-
 
     <script src="/scripts/jsdiff.js "></script>
     <script src="/scripts/speechHelper.js "></script>

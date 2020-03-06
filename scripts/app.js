@@ -14,6 +14,7 @@ function getSpokenText() {
 }
 
 function delCallBack(data) {
+    speechHelper.speak(data);
     console.log(data);
 }
 

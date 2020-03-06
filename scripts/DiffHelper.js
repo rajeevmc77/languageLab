@@ -16,7 +16,7 @@ class DiffHelper {
     getmodifiedDiffString(sourceString, mutedString, callbackDelFunc = "delCallBack", callbackInsFunc = "insCallBack") {
         let modifiedDiffString = "",
             diff = "";
-        this._revisedDelTag = '<a href="#" onclick="' + callbackDelFunc + '(\'$<delString>\')">$<del></a>';
+        this._revisedDelTag = '<a href="#" onclick="' + callbackDelFunc + '(\'$<delString>\')"> <i class="fa fa-volume-up "></i> $<del></a>';
         try {
             diff = diffString(sourceString, mutedString);
             modifiedDiffString = diff.replace(this._delpatteren, this._revisedDelTag);
@@ -24,5 +24,9 @@ class DiffHelper {
             console.log('exception ocured.', exp.message)
         }
         return modifiedDiffString;
+    }
+
+    getDeletedWordsCount(message) {
+        return message.match(this._delpatteren).length;
     }
 }
