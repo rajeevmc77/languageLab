@@ -3,14 +3,32 @@
 let speechHelper = new SpeechHelper();
 let stringDiff = new DiffHelper();
 
+function cleanText(message) {
+    try {
+        let pattern = /[^A-Za-z0-9\s]/g;
+        message = message.replace(pattern, '').toLowerCase();
+    } catch (exp) {
+        console.log(exp.message);
+    }
+    return message;
+}
+
+function analyseAssessment(wordsStats) {
+    //{deletedWords: 14, insertedwords: 6, sourceWords: 32, spokenWords: 24}
+    let html = " Source Words : " + wordsStats.sourceWords + " Spoken Words : " + wordsStats.spokenWords +
+        " removed words : " + wordsStats.deletedWords + "new words :" + wordsStats.insertedwords +
+        " Accuracy : " + (wordsStats.sourceWords - wordsStats.deletedWords) / wordsStats.sourceWords;
+    divAnalysisArea.innerHTML = html;
+}
+
 function getTextToRead() {
     var node = document.getElementById('dvTextToRead');
-    return node.innerText;
+    return cleanText(node.innerText);
 }
 
 function getSpokenText() {
     var node = document.getElementById('dvSpokenText');
-    return node.innerText;
+    return cleanText(node.innerText);
 }
 
 function delCallBack(data) {
@@ -34,7 +52,8 @@ btnSpeak.addEventListener('click', () => {
 
 btnStartRecognise.addEventListener('click', () => {
     speechHelper.startSpeechRecognition(speechCallBack);
-    document.getElementById("divbtnStartRecognise").className = "hideme";
+    divbtnStartRecognise.className = "hideme";
+    //document.getElementById("divbtnStartRecognise").className = "hideme";
     document.getElementById("divbtnStopRecognise").className = "showme";
 });
 btnStopRecognise.addEventListener('click', () => {
@@ -46,5 +65,10 @@ btnStopRecognise.addEventListener('click', () => {
 btnAssessReading.addEventListener('click', () => {
     let sourceText = getTextToRead();
     let spokenText = getSpokenText();
-    dvDiffArea.innerHTML = stringDiff.getmodifiedDiffString(sourceText, spokenText, 'delCallBack');
+    let diffResult = stringDiff.getmodifiedDiffString(sourceText, spokenText, 'delCallBack');
+    dvDiffArea.innerHTML = diffResult;
+    let wordsStats = stringDiff.getAssessmentStats(diffResult);
+    wordsStats['sourceWords'] = sourceText.split(' ').length;
+    wordsStats['spokenWords'] = spokenText.split(' ').length;
+    analyseAssessment(wordsStats);
 });

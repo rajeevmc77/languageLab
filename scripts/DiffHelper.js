@@ -26,7 +26,9 @@ class DiffHelper {
         return modifiedDiffString;
     }
 
-    getDeletedWordsCount(message) {
-        return message.match(this._delpatteren).length;
+    getAssessmentStats(message) {
+        let deletedWords = message.match(this._delpatteren).length;
+        let insertedwords = message.match(this._inspatteren).length;
+        return { 'deletedWords': deletedWords, 'insertedwords': insertedwords };
     }
 }
