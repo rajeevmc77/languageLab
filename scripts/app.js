@@ -15,11 +15,10 @@ function getSpokenText() {
 
 function delCallBack(data) {
     speechHelper.speak(data);
-    console.log(data);
 }
 
 function speakTextCompletionCallBack() {
-    console.log('Read Text Completed');
+    btnSpeak.disabled = false;
 }
 
 function speechCallBack(response) {
@@ -27,6 +26,7 @@ function speechCallBack(response) {
 }
 
 btnSpeak.addEventListener('click', () => {
+    btnSpeak.disabled = true;
     let msg = getTextToRead();
     let speech = new SpeechHelper();
     speech.speak(msg, speakTextCompletionCallBack);
@@ -34,9 +34,13 @@ btnSpeak.addEventListener('click', () => {
 
 btnStartRecognise.addEventListener('click', () => {
     speechHelper.startSpeechRecognition(speechCallBack);
+    document.getElementById("divbtnStartRecognise").className = "hideme";
+    document.getElementById("divbtnStopRecognise").className = "showme";
 });
 btnStopRecognise.addEventListener('click', () => {
     speechHelper.stopSpeechRecognition();
+    document.getElementById("divbtnStartRecognise").className = "showme";
+    document.getElementById("divbtnStopRecognise").className = "hideme";
 });
 
 btnAssessReading.addEventListener('click', () => {

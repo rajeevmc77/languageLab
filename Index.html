@@ -16,18 +16,18 @@
             <img src="img/sheebu.png" />
         </div>
         <div class="story-content">
-            <div id=dvTextToRead ">                 
+            <div id="dvTextToRead">
                 You can first filter your array and then perform your map but this would require two passes on the array. Since this array is small, it is a very small performance cost.
                 <div class="control-panel ">
                     <div>
                         <button id='btnSpeak'><i class="fa fa-play fa-2x " aria-hidden="true "></i></button>
                     </div>
-                    <div>
+                    <div id="divbtnStartRecognise" class="showme ">
                         <button id='btnStartRecognise'><i class="fa fa-microphone fa-2x " aria-hidden="true "></i></button>
-                    </div> 
-                    <div>  
+                    </div>
+                    <div id="divbtnStopRecognise" class="hideme ">
                         <button id='btnStopRecognise'><i class="fa fa-microphone-slash fa-2x " aria-hidden="true "></i></button>
-                    </div> 
+                    </div>
                     <div>
                         <button id='btnAssessReading'><i class="fa fa-line-chart fa-2x " aria-hidden="true "></i></button>
                     </div>
@@ -37,15 +37,15 @@
             </div>
             <div id=dvDiffArea></div>
         </div>
-        <div class="reports ">            
+        <div class="reports">
         </div>
-        <div class="learning-outcome ">Learning outcome</div>
+        <div class="learning-outcome">Learning outcome</div>
     </div>
 
-    <script src="/scripts/jsdiff.js "></script>
-    <script src="/scripts/speechHelper.js "></script>
-    <script src="/scripts/DiffHelper.js "></script>
-    <script src="/scripts/app.js "></script>
+    <script src="/scripts/jsdiff.js"></script>
+    <script src="/scripts/speechHelper.js"></script>
+    <script src="/scripts/DiffHelper.js"></script>
+    <script src="/scripts/app.js"></script>
 </body>
 
 </html>
