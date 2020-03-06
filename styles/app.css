@@ -31,11 +31,6 @@
     grid-area: learning-outcome;
 }
 
-.reports-div {
-    width: 100%;
-    height: 50%;
-}
-
 .story-page>img {
     width: 100%;
     height: 100%;
@@ -73,8 +68,15 @@
     grid-template-areas: 'header header header' 'story-page story-content reports' 'learning-outcome learning-outcome learning-outcome';
     grid-gap: 2px;
     background-color: rgb(104, 224, 245);
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     grid-template-rows: 50px 1fr 100px;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.control-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
 }
