@@ -15,9 +15,11 @@ function cleanText(message) {
 
 function analyseAssessment(wordsStats) {
     //{deletedWords: 14, insertedwords: 6, sourceWords: 32, spokenWords: 24}
-    let html = " Source Words : " + wordsStats.sourceWords + " Spoken Words : " + wordsStats.spokenWords +
-        " removed words : " + wordsStats.deletedWords + "new words :" + wordsStats.insertedwords +
-        " Accuracy : " + (wordsStats.sourceWords - wordsStats.deletedWords) / wordsStats.sourceWords;
+    let html = "<p> Source Words : " + wordsStats.sourceWords + " Spoken Words : " + wordsStats.spokenWords +
+        " Removed words : " + wordsStats.deletedWords + " New words :" + wordsStats.insertedwords +
+        " Matching Words : " + (wordsStats.sourceWords - wordsStats.deletedWords) +
+        " Accuracy : " + (wordsStats.sourceWords - wordsStats.deletedWords) / wordsStats.sourceWords +
+        "</p>";
     divAnalysisArea.innerHTML = html;
 }
 
