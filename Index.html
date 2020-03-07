@@ -20,7 +20,12 @@
                 Sheebu was a sheep. One day she found a bell. She thought to herself 'Wow! What a tingle-jingle bell. I will wear this bell.' She hung it around her neck. Seeing the bell her friends asked, "Sheebu, what a lovely bell you have." Sheebu felt happy.
                 <div class="control-panel ">
                     <div>
-                        <button id='btnSpeak'><i class="fa fa-play fa-2x " aria-hidden="true "></i></button>
+                        <!-- <button id='btnSpeak'><i class="fa fa-play fa-2x " aria-hidden="true "></i></button> -->
+                        <!-- src="/audio/SheebutheSheep_1.mp3#t=6,12" -->
+                        <audio id="audioControl" src="/audio/SheebutheSheep_1.mp3" type="audio/mpeg" controls="" style="display:none;"></audio>
+                        <button id="btnAudioControl">
+                            <i class="fa fa-play fa-2x " aria-hidden="true "></i>
+                        </button>
                     </div>
                     <div id="divbtnStartRecognise" class="showme ">
                         <button id='btnStartRecognise'><i class="fa fa-microphone fa-2x " aria-hidden="true "></i></button>
@@ -41,13 +46,13 @@
             <div id="divAnalysisArea"></div>
         </div>
         <div class="learning-outcome">
-            <audio id="audioControl" src="/audio/SheebutheSheep_1.mp3#t=6,12" type="audio/mpeg" controls="" style="display:none;"></audio>
-            <button id="btnAudioControl"><i class="fa fa-play fa-2x " aria-hidden="true "></i></button>
+
             <!-- controls="" style="display:none;" -->
         </div>
 
     </div>
 
+    <script src="/scripts/jquery-3.4.1.min.js"></script>
     <script src="/scripts/jsdiff.js"></script>
     <script src="/scripts/speechHelper.js"></script>
     <script src="/scripts/DiffHelper.js"></script>

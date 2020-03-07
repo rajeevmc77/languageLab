@@ -37,30 +37,44 @@ function delCallBack(data) {
     speechHelper.speak(data);
 }
 
-function speakTextCompletionCallBack() {
-    btnSpeak.disabled = false;
-}
+// function speakTextCompletionCallBack() {
+//     btnSpeak.disabled = false;
+// }
 
 function speechCallBack(response) {
     dvSpokenText.innerHTML = response;
 }
 
-btnSpeak.addEventListener('click', () => {
-    btnSpeak.disabled = true;
-    let msg = getTextToRead();
-    let speech = new SpeechHelper();
-    speech.speak(msg, speakTextCompletionCallBack);
-});
-
-btnAudioControl.addEventListener('click', () => {
+// btnSpeak.addEventListener('click', () => {
+//     btnSpeak.disabled = true;
+//     let msg = getTextToRead();
+//     let speech = new SpeechHelper();
+//     speech.speak(msg, speakTextCompletionCallBack);
+// });
+$("#btnAudioControl").click(function() {
     if (audioControl.paused) {
+        $("i:first").addClass("fa-pause");
+        $("i:first").removeClass("fa-play");
+        //btnAudioControl.childNodes[0].className = "fa fa-pause fa-2x";
         audioControl.play();
-        btnAudioControl.childNodes[0].className = "fa fa-pause fa-2x";
     } else {
+        $("i:first").addClass("fa-play");
+        $("i:first").removeClass("fa-pause");
+        //btnAudioControl.childNodes[0].className = "fa fa-play fa-2x";
         audioControl.pause();
-        btnAudioControl.childNodes[0].className = "fa fa-play fa-2x";
     }
 });
+
+// btnAudioControl.addEventListener('click', () => {
+//     //$.getJSON('/audio/SheebutheSheep_1.json',function(data){ console.log(data);})
+//     if (audioControl.paused) {
+//         btnAudioControl.childNodes[0].className = "fa fa-pause fa-2x";
+//         audioControl.play();
+//     } else {
+//         btnAudioControl.childNodes[0].className = "fa fa-play fa-2x";
+//         audioControl.pause();
+//     }
+// });
 
 
 
