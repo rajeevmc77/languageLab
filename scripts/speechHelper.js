@@ -128,6 +128,7 @@ class SpeechHelper {
             .map(result => result[0])
             .map(result => result.transcript)
             .join('');
+        console.log(this._currentTranscript);
     }
 
     recognitionCompletion() {

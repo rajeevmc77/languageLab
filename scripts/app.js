@@ -52,31 +52,17 @@ function speechCallBack(response) {
 //     speech.speak(msg, speakTextCompletionCallBack);
 // });
 $("#btnAudioControl").click(function() {
+    //$.getJSON('/audio/SheebutheSheep_1.json',function(data){ console.log(data);})
     if (audioControl.paused) {
         $("i:first").addClass("fa-pause");
         $("i:first").removeClass("fa-play");
-        //btnAudioControl.childNodes[0].className = "fa fa-pause fa-2x";
         audioControl.play();
     } else {
         $("i:first").addClass("fa-play");
         $("i:first").removeClass("fa-pause");
-        //btnAudioControl.childNodes[0].className = "fa fa-play fa-2x";
         audioControl.pause();
     }
 });
-
-// btnAudioControl.addEventListener('click', () => {
-//     //$.getJSON('/audio/SheebutheSheep_1.json',function(data){ console.log(data);})
-//     if (audioControl.paused) {
-//         btnAudioControl.childNodes[0].className = "fa fa-pause fa-2x";
-//         audioControl.play();
-//     } else {
-//         btnAudioControl.childNodes[0].className = "fa fa-play fa-2x";
-//         audioControl.pause();
-//     }
-// });
-
-
 
 btnStartRecognise.addEventListener('click', () => {
     speechHelper.startSpeechRecognition(speechCallBack);
