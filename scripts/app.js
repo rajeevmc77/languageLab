@@ -52,6 +52,18 @@ btnSpeak.addEventListener('click', () => {
     speech.speak(msg, speakTextCompletionCallBack);
 });
 
+btnAudioControl.addEventListener('click', () => {
+    if (audioControl.paused) {
+        audioControl.play();
+        btnAudioControl.childNodes[0].className = "fa fa-pause fa-2x";
+    } else {
+        audioControl.pause();
+        btnAudioControl.childNodes[0].className = "fa fa-play fa-2x";
+    }
+});
+
+
+
 btnStartRecognise.addEventListener('click', () => {
     speechHelper.startSpeechRecognition(speechCallBack);
     divbtnStartRecognise.className = "hideme";
