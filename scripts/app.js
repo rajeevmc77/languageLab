@@ -3,6 +3,9 @@
 let speechHelper = new SpeechHelper();
 let stringDiff = new DiffHelper();
 let speechRecognitionStatus = "stop";
+let story = `Sheebu was a sheep. One day she found a bell. She thought to herself 'Wow! What a tingle-jingle bell. 
+        I will wear this bell.' She hung it around her neck. 
+        Seeing the bell her friends asked, "Sheebu, what a lovely bell you have." Sheebu felt happy.`;
 
 function cleanText(message) {
     try {
@@ -46,12 +49,24 @@ function speechCallBack(response) {
     dvSpokenText.innerHTML = response;
 }
 
+//btnAudioControl.addEventListener('click', () => {
+    // btnSpeak.addEventListener('click', () => {
+    //     btnSpeak.disabled = true;
+    //     let msg = getTextToRead();
+    //     let speech = new SpeechHelper();
+    //     speech.speak(msg, speakTextCompletionCallBack);
+    // });
+function playAudio(url){
+    audioControl.src = url;
+    audioControl.play();
+}
+
 $("#btnAudioControl").click(function() {
     //$.getJSON('/audio/SheebutheSheep_1.json',function(data){ console.log(data);})
     if (audioControl.paused) {
         $("i:first").addClass("fa-pause");
         $("i:first").removeClass("fa-play");
-        audioControl.play();
+        playAudio('/audio/SheebutheSheep_1.mp3');        
     } else {
         $("i:first").addClass("fa-play");
         $("i:first").removeClass("fa-pause");
@@ -86,4 +101,20 @@ $("#btnAssessReading").click(function() {
     analyseAssessment(wordsStats);
 });
 
+$(document).ready(function() {
+    //content
 
+    //story
+    //$("#parent").append('<div id = "newElement">A ' 
+    //+ 'Computer Science portal for geeks</div>'); 
+    $.getJSON('/audio/SheebutheSheep_1.json',function(syncData){ 
+        syncData.fragments.forEach((data)=>{
+            let text = data.lines[0];
+            let audioUrl = '/audio/SheebutheSheep_1.mp3#t='+data.start+","+data.end;
+            let tag = `<a onclick=playAudio('${audioUrl}')>${text} </a>`;
+            $('#content').append(tag);
+        });
+        //console.log(syncData);
+    });
+
+});
