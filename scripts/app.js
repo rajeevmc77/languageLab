@@ -113,8 +113,7 @@ $(document).ready(function() {
             let audioUrl = '/audio/SheebutheSheep_1.mp3#t='+data.begin+","+data.end;
             let tag = `<a style="text-decoration:none" href='#' onclick=playAudio('${audioUrl}')>${text} </a>`;
             $('#content').append(tag);
-        });
-        //console.log(syncData);
+        });       
     });
 
 });
