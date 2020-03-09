@@ -4,10 +4,10 @@
  * @description Synthesise and Recognise speech from Browser. 
  */
 class SpeechHelper {
-    constructor() {
+    constructor() {        
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         this._recognition = new SpeechRecognition();
-        this._recognition.interimResults = true;
+        //this._recognition.interimResults = true;
         this._continueRecognisingSpeech = true;
         this._recogniseCallBackFunc = null;
         this._recognition.onresult = this.recognisedTranscript.bind(this);

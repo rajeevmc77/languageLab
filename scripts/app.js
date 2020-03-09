@@ -2,6 +2,7 @@
 
 let speechHelper = new SpeechHelper();
 let stringDiff = new DiffHelper();
+let speechRecognitionStatus = "stop";
 
 function cleanText(message) {
     try {
@@ -45,12 +46,6 @@ function speechCallBack(response) {
     dvSpokenText.innerHTML = response;
 }
 
-// btnSpeak.addEventListener('click', () => {
-//     btnSpeak.disabled = true;
-//     let msg = getTextToRead();
-//     let speech = new SpeechHelper();
-//     speech.speak(msg, speakTextCompletionCallBack);
-// });
 $("#btnAudioControl").click(function() {
     //$.getJSON('/audio/SheebutheSheep_1.json',function(data){ console.log(data);})
     if (audioControl.paused) {
@@ -64,19 +59,23 @@ $("#btnAudioControl").click(function() {
     }
 });
 
-btnStartRecognise.addEventListener('click', () => {
-    speechHelper.startSpeechRecognition(speechCallBack);
-    divbtnStartRecognise.className = "hideme";
-    //document.getElementById("divbtnStartRecognise").className = "hideme";
-    document.getElementById("divbtnStopRecognise").className = "showme";
-});
-btnStopRecognise.addEventListener('click', () => {
-    speechHelper.stopSpeechRecognition();
-    document.getElementById("divbtnStartRecognise").className = "showme";
-    document.getElementById("divbtnStopRecognise").className = "hideme";
+$("#btnStartRecognise").click(function() { 
+    speechRecognitionStatus = (speechRecognitionStatus === "stop") ? "listening" : "stop"; 
+    if(speechRecognitionStatus === "listening"){
+        speechHelper.startSpeechRecognition(speechCallBack);
+        $("#btnStartRecognise i:first-child").addClass("fa-microphone-slash");
+        $("#btnStartRecognise i:first-child").removeClass("fa-microphone");       
+        $("#dvSpeachStatus").show();
+    }
+    else{
+        speechHelper.stopSpeechRecognition();
+        $("#btnStartRecognise i:first-child").addClass("fa-microphone");
+        $("#btnStartRecognise i:first-child").removeClass("fa-microphone-slash"); 
+        $("#dvSpeachStatus").hide();       
+    }
 });
 
-btnAssessReading.addEventListener('click', () => {
+$("#btnAssessReading").click(function() {
     let sourceText = getTextToRead();
     let spokenText = getSpokenText();
     let diffResult = stringDiff.getmodifiedDiffString(sourceText, spokenText, 'delCallBack');
@@ -86,3 +85,5 @@ btnAssessReading.addEventListener('click', () => {
     wordsStats['spokenWords'] = spokenText.split(' ').length;
     analyseAssessment(wordsStats);
 });
+
+

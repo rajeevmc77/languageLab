@@ -27,27 +27,31 @@
                             <i class="fa fa-play fa-2x " aria-hidden="true "></i>
                         </button>
                     </div>
-                    <div id="divbtnStartRecognise" class="showme ">
-                        <button id='btnStartRecognise'><i class="fa fa-microphone fa-2x " aria-hidden="true "></i></button>
-                    </div>
-                    <div id="divbtnStopRecognise" class="hideme ">
-                        <button id='btnStopRecognise'><i class="fa fa-microphone-slash fa-2x " aria-hidden="true "></i></button>
-                    </div>
+                    <div id="divbtnStartRecognise" >
+                        <button id='btnStartRecognise'>
+                            <i class="fa fa-microphone fa-2x showme  " aria-hidden="true "></i>                            
+                        </button>
+                    </div>                   
                     <div>
                         <button id='btnAssessReading'><i class="fa fa-line-chart fa-2x " aria-hidden="true "></i></button>
                     </div>
                 </div>
             </div>
-            <div id=dvSpokenText>
+            <div id="dvSpeechArea">
+                <p id=dvSpokenText> Spoken Text
+                </p>
+                <div id=dvSpeachStatus>
+                    <img src="/img/progressIndicator.gif" alt="">
+                </div>
             </div>
-            <div id=dvDiffArea></div>
+            <div id=dvDiffArea>
+
+            </div>
         </div>
         <div class="reports">
             <div id="divAnalysisArea"></div>
         </div>
         <div class="learning-outcome">
-
-            <!-- controls="" style="display:none;" -->
         </div>
 
     </div>
