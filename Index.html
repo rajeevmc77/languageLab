@@ -16,36 +16,38 @@
             <img src="img/sheebu.png" />
         </div>
         <div class="story-content">
-            <div id="dvTextToRead">
-                Sheebu was a sheep. One day she found a bell. She thought to herself 'Wow! What a tingle-jingle bell. I will wear this bell.' She hung it around her neck. Seeing the bell her friends asked, "Sheebu, what a lovely bell you have." Sheebu felt happy.
-                <div class="control-panel ">
-                    <div>
-                        <!-- <button id='btnSpeak'><i class="fa fa-play fa-2x " aria-hidden="true "></i></button> -->
-                        <!-- src="/audio/SheebutheSheep_1.mp3#t=6,12" -->
-                        <audio id="audioControl" src="/audio/SheebutheSheep_1.mp3" type="audio/mpeg" controls="" style="display:none;"></audio>
-                        <button id="btnAudioControl">
-                            <i class="fa fa-play fa-2x " aria-hidden="true "></i>
-                        </button>
-                    </div>
-                    <div id="divbtnStartRecognise" >
-                        <button id='btnStartRecognise'>
-                            <i class="fa fa-microphone fa-2x showme  " aria-hidden="true "></i>                            
-                        </button>
-                    </div>                   
-                    <div>
-                        <button id='btnAssessReading'><i class="fa fa-line-chart fa-2x " aria-hidden="true "></i></button>
-                    </div>
+            <div id="dvTextToRead">                
+                <div class="dvaudio">
+                    <!-- <button id='btnSpeak'><i class="fa fa-play fa-2x " aria-hidden="true "></i></button> -->
+                    <!-- src="/audio/SheebutheSheep_1.mp3#t=6,12" -->
+                    <audio id="audioControl" src="/audio/SheebutheSheep_1.mp3" type="audio/mpeg" controls="" style="display:none;"></audio>
+                    <button id="btnAudioControl">
+                        <i class="fa fa-play fa-2x " aria-hidden="true "></i>
+                    </button>
                 </div>
-            </div>
+                <p id="content">
+                    Sheebu was a sheep. One day she found a bell. She thought to herself 'Wow! What a tingle-jingle bell. I will wear this bell.' She hung it around her neck. Seeing the bell her friends asked, "Sheebu, what a lovely bell you have." Sheebu felt happy.
+                </p>               
+                </div>
             <div id="dvSpeechArea">
-                <p id=dvSpokenText> Spoken Text
+                <div id="divbtnStartRecognise" >
+                    <button id='btnStartRecognise'>
+                        <i class="fa fa-microphone fa-2x showme  " aria-hidden="true "></i>                            
+                    </button>
+                </div> 
+                <p id=dvSpokenText> 
                 </p>
                 <div id=dvSpeachStatus>
                     <img src="/img/progressIndicator.gif" alt="">
                 </div>
             </div>
-            <div id=dvDiffArea>
+            <div id="dvSpeechDiffArea">
+                <div>
+                    <button id='btnAssessReading'><i class="fa fa-line-chart fa-2x " aria-hidden="true "></i></button>
+                </div>
+                <p id=dvDiffArea>
 
+                </p>
             </div>
         </div>
         <div class="reports">
@@ -53,7 +55,6 @@
         </div>
         <div class="learning-outcome">
         </div>
-
     </div>
 
     <script src="/scripts/jquery-3.4.1.min.js"></script>

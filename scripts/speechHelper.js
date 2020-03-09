@@ -7,7 +7,9 @@ class SpeechHelper {
     constructor() {        
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         this._recognition = new SpeechRecognition();
-        //this._recognition.interimResults = true;
+        this._recognition.interimResults = true;
+        //this._recognition.continuous = true;
+        this._recognition.maxAlternatives=1;
         this._continueRecognisingSpeech = true;
         this._recogniseCallBackFunc = null;
         this._recognition.onresult = this.recognisedTranscript.bind(this);
@@ -129,6 +131,10 @@ class SpeechHelper {
             .map(result => result.transcript)
             .join('');
         console.log(this._currentTranscript);
+        if (typeof(this._recogniseCallBackFunc) === typeof(Function)) {
+            let str = this._recognisedTranscriptsBag.join(' ') + ' ' + this._currentTranscript;
+            this._recogniseCallBackFunc(str);
+        }
     }
 
     recognitionCompletion() {
