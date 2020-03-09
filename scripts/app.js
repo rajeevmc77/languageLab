@@ -110,8 +110,8 @@ $(document).ready(function() {
     $.getJSON('/audio/SheebutheSheep_1.json',function(syncData){ 
         syncData.fragments.forEach((data)=>{
             let text = data.lines[0];
-            let audioUrl = '/audio/SheebutheSheep_1.mp3#t='+data.start+","+data.end;
-            let tag = `<a onclick=playAudio('${audioUrl}')>${text} </a>`;
+            let audioUrl = '/audio/SheebutheSheep_1.mp3#t='+data.begin+","+data.end;
+            let tag = `<a style="text-decoration:none" href='#' onclick=playAudio('${audioUrl}')>${text} </a>`;
             $('#content').append(tag);
         });
         //console.log(syncData);
