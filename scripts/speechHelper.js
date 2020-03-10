@@ -4,12 +4,12 @@
  * @description Synthesise and Recognise speech from Browser. 
  */
 class SpeechHelper {
-    constructor() {        
+    constructor() {
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         this._recognition = new SpeechRecognition();
         this._recognition.interimResults = true;
         //this._recognition.continuous = true;
-        this._recognition.maxAlternatives=1;
+        this._recognition.maxAlternatives = 1;
         this._continueRecognisingSpeech = true;
         this._recogniseCallBackFunc = null;
         this._recognition.onresult = this.recognisedTranscript.bind(this);
@@ -21,7 +21,7 @@ class SpeechHelper {
         this._toSpeak = new SpeechSynthesisUtterance();
         this._voices = this._synth.getVoices();
         this._toSpeak.voice = this._voices[2];
-        this._toSpeak.lang = 'en-US';
+        this._toSpeak.lang = 'en-UK';
         this._toSpeak.rate = 1;
         this._speakComplationCallBack;
     }
