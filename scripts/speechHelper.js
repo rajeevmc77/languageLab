@@ -118,19 +118,20 @@ class SpeechHelper {
 
     stopSpeechRecognition(callbackfunc) {
         try {
-            this._continueRecognisingSpeech = false;
             this._recognition.stop();
+            this._continueRecognisingSpeech = false;
         } catch (exp) {
             console.log(exp.message);
         }
 
     }
     recognisedTranscript(evt) {
+        if (this._continueRecognisingSpeech == false)
+            return;
         this._currentTranscript = Array.from(evt.results)
             .map(result => result[0])
             .map(result => result.transcript)
             .join('');
-        console.log(this._currentTranscript);
         if (typeof(this._recogniseCallBackFunc) === typeof(Function)) {
             let str = this._recognisedTranscriptsBag.join(' ') + ' ' + this._currentTranscript;
             this._recogniseCallBackFunc(str);
