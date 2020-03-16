@@ -17,7 +17,8 @@ class DiffHelper {
     getmodifiedDiffString(sourceString, mutedString, callbackDelFunc = "delCallBack", callbackInsFunc = "insCallBack") {
         let modifiedDiffString = "",
             diff = "";
-        this._revisedDelTag = '<a href="#" onclick="' + callbackDelFunc + '(\'$<delString>\')"> <i class="fa fa-volume-up "></i> $<del></a>';
+        this._revisedDelTag = '<a  onclick="' + callbackDelFunc + '(\'$<delString>\')"> <i class="fa fa-volume-up "></i></a></a> $<del>' +
+            '<a  onclick="' + callbackDelFunc + '(\'$<delString>\')"> <i class="fas fa-microphone"></i></a></a>';
         try {
             diff = diffString(sourceString, mutedString);
             diff = this.postProcessDiffResult(diff);

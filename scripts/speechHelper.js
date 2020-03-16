@@ -21,7 +21,7 @@ class SpeechHelper {
         this._toSpeak = new SpeechSynthesisUtterance();
         this._voices = this._synth.getVoices();
         this._toSpeak.voice = this._voices[2];
-        this._toSpeak.lang = 'en-UK';
+        this._toSpeak.lang = 'en-US';
         this._toSpeak.rate = 1;
         this._speakComplationCallBack;
     }
@@ -126,7 +126,7 @@ class SpeechHelper {
 
     }
     recognisedTranscript(evt) {
-        if (this._continueRecognisingSpeech == false)
+        if (this._continueRecognisingSpeech === false)
             return;
         this._currentTranscript = Array.from(evt.results)
             .map(result => result[0])
