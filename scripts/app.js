@@ -40,16 +40,28 @@ function getSpokenText() {
     return cleanText(node.innerText);
 }
 
-function delCallBack(data) {
-    speechHelper.speak(data);
-}
-
-// function speakTextCompletionCallBack() {
-//     btnSpeak.disabled = false;
-// }
-
 function speechCallBack(response) {
     dvSpokenText.innerHTML = response;
+}
+
+function speakWord(){  
+    var evnt = new Promise((resolve, reject)=>{
+        speechHelper.startSpeechRecognition((response)=>{
+            console.log(response);
+            //speechHelper.stopSpeechRecognition();
+        }); 
+    });      
+}
+
+function delCallBack(data,opcode) {
+    if(opcode === 'play'){
+        speechHelper.speak(data);
+    }
+    else if(opcode === 'record'){
+        speakWord();
+
+    }
+    
 }
 
 //btnAudioControl.addEventListener('click', () => {

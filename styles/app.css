@@ -106,3 +106,21 @@
 .story-content>div {
     text-align: justify;
 }
+
+a.assessment + span del  {   
+    padding: 2px;
+    text-decoration: none; 
+    color: red;
+}
+a.assessment + span ins  {   
+    padding: 2px;
+    text-decoration: none; 
+    color:green;      
+}
+a.assessment  > i:hover {
+    transform: scale(2);
+}
+
+a.assessment{
+    padding: 3px;
+}
