@@ -44,24 +44,27 @@ function speechCallBack(response) {
     dvSpokenText.innerHTML = response;
 }
 
-function speakWord(){  
-    var evnt = new Promise((resolve, reject)=>{
-        speechHelper.startSpeechRecognition((response)=>{
-            console.log(response);
-            //speechHelper.stopSpeechRecognition();
-        }); 
-    });      
+function speakWord() {
+    var promise = new Promise((resolve, reject) => {
+        speechHelper.startSpeechRecognition(
+            (response) => {
+                resolve(response);
+                console.log(response);
+                //speechHelper.stopSpeechRecognition();
+            }
+        );
+    });
+    return promise;
 }
 
-function delCallBack(data,opcode) {
-    if(opcode === 'play'){
+function delCallBack(data, opcode) {
+    if (opcode === 'play') {
         speechHelper.speak(data);
-    }
-    else if(opcode === 'record'){
+    } else if (opcode === 'record') {
         speakWord();
 
     }
-    
+
 }
 
 //btnAudioControl.addEventListener('click', () => {
