@@ -32,11 +32,31 @@ class SpeechHelper {
     speak(message, speakComplationCallBack) {
         try {
             let msgArray = this.decompose(message, 15);
-            this.speakBatch(msgArray, 0);
             this._speakComplationCallBack = speakComplationCallBack;
+            this.speakBatch(msgArray, 0);
         } catch (exp) {
             console.log('exception ocured.', exp.message)
         }
+    }
+
+    /** @description Speak out all the text passed in to the system.
+     * @param {string} message to be spoken.         
+     */
+    speakPromise(message) {
+        let retPromise;
+        try {
+            let msgArray = this.decompose(message, 15);
+            retPromise = new Promise((resolve, reject) => {
+                this._speakComplationCallBack = resolve;
+            });
+            this.speakBatch(msgArray, 0);
+        } catch (exp) {
+            console.log('exception ocured.', exp.message)
+            retPromise = new Promise((resolve, reject) => {
+                reject(exp.message);
+            });
+        }
+        return retPromise;
     }
 
     speakingBatchCompleted() {
@@ -80,31 +100,55 @@ class SpeechHelper {
      * @param {number} splitsize  max lenth of a list item .         
      */
     decompose(message, splitsize) {
-        let msgList = [];
-        let msgSplitArray = message.split(' ');
-        let msgLength = msgSplitArray.length;
-        let cumilativeListLength = 0;
-        let msg = "";
-        while (true) {
-            msg = msgSplitArray.slice(cumilativeListLength, cumilativeListLength + splitsize).join(' ');
-            msgList.push(msg);
-            cumilativeListLength = cumilativeListLength + splitsize;
-            if (cumilativeListLength >= msgLength)
-                break;
+            let msgList = [];
+            let msgSplitArray = message.split(' ');
+            let msgLength = msgSplitArray.length;
+            let cumilativeListLength = 0;
+            let msg = "";
+            while (true) {
+                msg = msgSplitArray.slice(cumilativeListLength, cumilativeListLength + splitsize).join(' ');
+                msgList.push(msg);
+                cumilativeListLength = cumilativeListLength + splitsize;
+                if (cumilativeListLength >= msgLength)
+                    break;
+            }
+            return msgList;
         }
-        return msgList;
-    }
-
+        /** @description Initiates the speech recognition activity. 
+         * @param {function} callbackfunc  call back function has string as parameter
+         * eg recognitionDone(str);    
+         */
     startSpeechRecognition(callbackfunc) {
+            try {
+                this._continueRecognisingSpeech = true;
+                this._recognisedTranscriptsBag = [];
+                this._recogniseCallBackFunc = callbackfunc;
+                this._recognition.start();
+            } catch (exp) {
+                console.log(exp.message);
+            }
+
+        }
+        /** @description Promise based speech recognition initiator . 
+         * @param {function} callbackfunc  call back function has string as parameter
+         * eg recognitionDone(str);    
+         */
+    startSpeechRecognitionPromise() {
+        let retPromise;
         try {
             this._continueRecognisingSpeech = true;
             this._recognisedTranscriptsBag = [];
-            this._recogniseCallBackFunc = callbackfunc;
+            retPromise = new Promise((resolve, reject) => {
+                this._recogniseCallBackFunc = resolve;
+            });
             this._recognition.start();
         } catch (exp) {
             console.log(exp.message);
+            retPromise = new Promise((resolve, reject) => {
+                reject(exp.message);
+            });
         }
-
+        return retPromise;
     }
 
     restartSpeechRecognition() {
@@ -120,6 +164,15 @@ class SpeechHelper {
         try {
             this._recognition.stop();
             this._continueRecognisingSpeech = false;
+        } catch (exp) {
+            console.log(exp.message);
+        }
+
+    }
+    abortSpeechRecognition(callbackfunc) {
+        try {
+            this._continueRecognisingSpeech = false;
+            this._recognition.abort();
         } catch (exp) {
             console.log(exp.message);
         }

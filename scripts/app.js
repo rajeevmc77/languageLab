@@ -21,7 +21,6 @@ function cleanText(message) {
 }
 
 function analyseAssessment(wordsStats) {
-    //{deletedWords: 14, insertedwords: 6, sourceWords: 32, spokenWords: 24}
     let html = "<p> Source Words : " + wordsStats.sourceWords + " Spoken Words : " + wordsStats.spokenWords +
         " Removed words : " + wordsStats.deletedWords + " New words :" + wordsStats.insertedwords +
         " Matching Words : " + (wordsStats.sourceWords - wordsStats.deletedWords) +
@@ -49,8 +48,6 @@ function speakWord() {
         speechHelper.startSpeechRecognition(
             (response) => {
                 resolve(response);
-                console.log(response);
-                //speechHelper.stopSpeechRecognition();
             }
         );
     });
@@ -61,8 +58,11 @@ function delCallBack(data, opcode) {
     if (opcode === 'play') {
         speechHelper.speak(data);
     } else if (opcode === 'record') {
-        speakWord();
-
+        speakWord().then((resp) => {
+            console.log(resp);
+            divSpeakTest.innerText = resp;
+            speechHelper.abortSpeechRecognition();
+        });
     }
 
 }
